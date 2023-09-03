@@ -118,9 +118,9 @@ def translate_line(line):
 
     i = 0
     line = line.lower()  # Convert input to lowercase
-    while i < len(line):
+    while i < len(line): # Remove extra spaces and split the input text into romaji syllables
         found = False
-        for length in range(5, 0, -1):
+        for length in range(5, 0, -1): # Matches longer syllables first
             syllable = line[i:i + length]
             if syllable in romaji_to_hiragana:
                 syllables.append(syllable)
@@ -131,6 +131,7 @@ def translate_line(line):
             print("Invalid romaji syllable found:", line[i])
             return
 
+    # Translate each romaji syllable to hiragana
     for syllable in syllables:
         hiragana_translation += romaji_to_hiragana[syllable]
 
@@ -146,6 +147,7 @@ def translate(input_text):
             print("No translation found")
 
 # Input text with multiple lines and paragraphs
+# Replace the inserted input with what you want to translate
 input_text = """Hanron nado iranai
 Negatte shimatta anata no make sa
 Nagai nemuri no tabi no hajimari da"""
