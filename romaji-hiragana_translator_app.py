@@ -64,6 +64,9 @@ romaji_to_hiragana = {
     "ryu": "りゅ",
     "ryo": "りょ",
     "wa": "わ",
+    "wi":"ゐ",
+    "we":"ゑ",
+    "wo":"を",
     "ga": "が",
     "gi": "ぎ",
     "gu": "ぐ",
@@ -101,38 +104,50 @@ romaji_to_hiragana = {
     "pyo": "ぴょ",
     "n": "ん",
     " ": " ",
-    "  ": "  ",
-    "   ": "   ",
-    "    ": "    ",
-    "\n": "\n"
+    "\n": "\n",
+    "k": "っ",
+    "s": "っ",
+    "t": "っ",
+    "h": "っ",
+    "f": "っ"
 }
 
-def translate(input_text):
+def translate_line(line):
     hiragana_translation = ""
     syllables = []
 
     i = 0
-    input_text = input_text.lower()  # Convert input to lowercase
-    while i < len(input_text):
+    line = line.lower()  # Convert input to lowercase
+    while i < len(line):
         found = False
         for length in range(5, 0, -1):
-            syllable = input_text[i:i + length]
+            syllable = line[i:i + length]
             if syllable in romaji_to_hiragana:
                 syllables.append(syllable)
                 i += length
                 found = True
                 break
         if not found:
-            print("Invalid romaji syllable found:", input_text[i])
+            print("Invalid romaji syllable found:", line[i])
             return
 
     for syllable in syllables:
         hiragana_translation += romaji_to_hiragana[syllable]
 
-    if hiragana_translation:
-        print(hiragana_translation)
-    else:
-        print("No translation found")
+    return hiragana_translation
 
-word_to_translate = input("Type in the word to translate: ")
-translate(word_to_translate)
+def translate(input_text):
+    lines = input_text.split('\n')  # Split input into lines
+    for line in lines:
+        hiragana_translation = translate_line(line)
+        if hiragana_translation:
+            print(hiragana_translation)
+        else:
+            print("No translation found")
+
+# Input text with multiple lines and paragraphs
+input_text = """Hanron nado iranai
+Negatte shimatta anata no make sa
+Nagai nemuri no tabi no hajimari da"""
+
+translate(input_text)
