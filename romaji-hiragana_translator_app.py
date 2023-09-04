@@ -112,7 +112,7 @@ romaji_to_hiragana = {
     "f": "っ"
 }
 
-def translate_line(line):
+def translate_line(line): #Translate function definition
     hiragana_translation = ""
     syllables = []
 
